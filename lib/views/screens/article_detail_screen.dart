@@ -39,7 +39,9 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
     final detailViewModel = context.read<ArticleDetailViewModel>();
 
     if (listViewModel.articles.isEmpty) return;
-    if (_currentIndex < 0 || _currentIndex >= listViewModel.articles.length) return;
+    if (_currentIndex < 0 || _currentIndex >= listViewModel.articles.length) {
+      return;
+    }
 
     final article = listViewModel.articles[_currentIndex];
     detailViewModel.loadArticle(article.id);
@@ -82,10 +84,7 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
   void _showMessage(String message) {
     if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
-        behavior: SnackBarBehavior.floating,
-      ),
+      SnackBar(content: Text(message), behavior: SnackBarBehavior.floating),
     );
   }
 
@@ -144,8 +143,8 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
               final listArticle = articles[index];
               final detailArticle =
                   detailViewModel.article?.id == listArticle.id
-                      ? detailViewModel.article!
-                      : listArticle;
+                  ? detailViewModel.article!
+                  : listArticle;
 
               return _buildArticleContent(
                 context,
@@ -186,7 +185,8 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                     child: SizedBox(
                       width: double.infinity,
                       height: imageHeight,
-                      child: article.imageUrl != null &&
+                      child:
+                          article.imageUrl != null &&
                               article.imageUrl!.trim().isNotEmpty
                           ? CachedNetworkImage(
                               imageUrl: article.imageUrl!,
@@ -291,7 +291,9 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                         : 'No summary is available for this article.',
                     style: theme.textTheme.bodyLarge?.copyWith(
                       height: 1.7,
-                      color: theme.colorScheme.onSurface.withValues(alpha: 0.85),
+                      color: theme.colorScheme.onSurface.withValues(
+                        alpha: 0.85,
+                      ),
                     ),
                   ),
 

@@ -16,11 +16,7 @@ class MyApp extends StatelessWidget {
   final ApiClient? apiClient;
   final ArticleRepository? articleRepository;
 
-  const MyApp({
-    super.key,
-    this.apiClient,
-    this.articleRepository,
-  });
+  const MyApp({super.key, this.apiClient, this.articleRepository});
 
   @override
   Widget build(BuildContext context) {
