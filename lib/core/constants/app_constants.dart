@@ -6,4 +6,6 @@ class AppConstants {
   static const String baseUrl = 'https://api.spaceflightnewsapi.net/v4';
 
   static const String articlesEndpoint = '/articles/';
+
+  static const String infoEndpoint = '/info/';
 }

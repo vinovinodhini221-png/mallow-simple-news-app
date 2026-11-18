@@ -24,7 +24,9 @@ class _ArticleListScreenState extends State<ArticleListScreen> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
-      context.read<ArticleListViewModel>().fetchArticles();
+      final viewModel = context.read<ArticleListViewModel>();
+      viewModel.fetchCategories();
+      viewModel.fetchArticles();
     });
 
     _scrollController.addListener(_onScroll);
@@ -124,21 +126,23 @@ class _ArticleListScreenState extends State<ArticleListScreen> {
   }
 
   Widget _buildCategoryChips(ArticleListViewModel viewModel, ThemeData theme) {
+    final categories = viewModel.categories;
+
     return SizedBox(
       height: 48,
       child: ListView.separated(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
         scrollDirection: Axis.horizontal,
-        itemCount: ArticleListViewModel.availableCategories.length,
+        itemCount: categories.length,
         separatorBuilder: (context, index) => const SizedBox(width: 8),
         itemBuilder: (context, index) {
-          final category = ArticleListViewModel.availableCategories[index];
-          final isSelected = viewModel.selectedNewsSite == category;
+          final category = categories[index];
+          final isSelected = viewModel.selectedCategoryIndex == index;
 
           return ChoiceChip(
             label: Text(category),
             selected: isSelected,
-            onSelected: (_) => viewModel.selectCategory(category),
+            onSelected: (_) => viewModel.selectCategoryIndex(index),
             selectedColor: theme.colorScheme.primary,
             labelStyle: TextStyle(
               color: isSelected

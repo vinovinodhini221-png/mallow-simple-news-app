@@ -41,6 +41,11 @@ class FakeArticleRepository extends ArticleRepository {
       summary: 'A rocket was launched into orbit.',
     );
   }
+
+  @override
+  Future<List<String>> getNewsSites() async {
+    return ['NASA', 'SpaceNews'];
+  }
 }
 
 void main() {

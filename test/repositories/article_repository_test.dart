@@ -68,5 +68,16 @@ void main() {
       expect(article.title, 'Specific Article');
       expect(article.newsSite, 'SpaceNews');
     });
+
+    test('getNewsSites parses and returns list of news sites', () async {
+      fakeApiClient.responseToReturn = {
+        'version': '4.37.1',
+        'news_sites': ['NASA', 'SpaceNews', 'Spaceflight Now'],
+      };
+
+      final sites = await repository.getNewsSites();
+
+      expect(sites, ['NASA', 'SpaceNews', 'Spaceflight Now']);
+    });
   });
 }

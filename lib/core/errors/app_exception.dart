@@ -12,14 +12,16 @@ abstract class AppException implements Exception {
 /// Thrown when device has no internet connection or network is unreachable.
 class NetworkException extends AppException {
   const NetworkException([
-    super.message = 'No internet connection. Please check your network and retry.',
+    super.message =
+        'No internet connection. Please check your network and retry.',
   ]);
 }
 
 /// Thrown when an API request times out (connect, send, or receive).
 class TimeoutException extends AppException {
   const TimeoutException([
-    super.message = 'Connection timed out. The server took too long to respond.',
+    super.message =
+        'Connection timed out. The server took too long to respond.',
   ]);
 }
 

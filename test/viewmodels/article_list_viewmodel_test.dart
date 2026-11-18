@@ -44,6 +44,14 @@ class MockArticleRepository extends ArticleRepository {
       previousUrl: null,
     );
   }
+
+  @override
+  Future<List<String>> getNewsSites() async {
+    if (shouldThrow) {
+      throw const NetworkException('Failed to load categories');
+    }
+    return ['NASA', 'SpaceNews', 'Ars Technica'];
+  }
 }
 
 void main() {
@@ -108,6 +116,19 @@ void main() {
       expect(viewModel.selectedNewsSite, 'NASA');
       await Future<void>.delayed(const Duration(milliseconds: 50));
       expect(viewModel.articles.length, 1);
+    });
+
+    test('fetchCategories dynamically loads categories and preserves selection', () async {
+      await viewModel.fetchCategories();
+
+      expect(viewModel.categories, ['All', 'NASA', 'SpaceNews', 'Ars Technica']);
+      expect(viewModel.selectedCategoryIndex, 0);
+      expect(viewModel.selectedNewsSite, 'All');
+
+      // Select by index
+      viewModel.selectCategoryIndex(1);
+      expect(viewModel.selectedCategoryIndex, 1);
+      expect(viewModel.selectedNewsSite, 'NASA');
     });
   });
 }

@@ -22,23 +22,31 @@ class ArticleListViewModel extends ChangeNotifier {
   String? errorMessage;
   String? paginationError;
   String searchQuery = '';
-  String selectedNewsSite = 'All';
 
   String? _nextUrl;
   Timer? _debounceTimer;
 
   static const int _pageSize = 10;
 
-  /// Available news site categories (adapted from design reference).
-  static const List<String> availableCategories = [
-    'All',
-    'NASA',
-    'SpaceNews',
-    'Spaceflight Now',
-    'Ars Technica',
-    'Teslarati',
-    'Space Policy Online',
-  ];
+  // Dynamic news site categories
+  List<String> _categories = ['All'];
+  List<String> get categories => List.unmodifiable(_categories);
+  List<String> get availableCategories => categories;
+
+  int _selectedCategoryIndex = 0;
+  int get selectedCategoryIndex => _selectedCategoryIndex;
+
+  bool isLoadingCategories = false;
+
+  /// Returns the currently selected news site name (or 'All').
+  String get selectedNewsSite {
+    if (_categories.isEmpty ||
+        _selectedCategoryIndex < 0 ||
+        _selectedCategoryIndex >= _categories.length) {
+      return 'All';
+    }
+    return _categories[_selectedCategoryIndex];
+  }
 
   /// Initial load or filter-triggered fetch.
   Future<void> fetchArticles() async {
@@ -63,6 +71,11 @@ class ArticleListViewModel extends ChangeNotifier {
 
       _nextUrl = page.nextUrl;
       hasMore = page.hasNextPage;
+
+      // If categories haven't loaded from /info/ yet, extract from articles as fallback
+      if (_categories.length <= 1 && _articles.isNotEmpty) {
+        _populateCategoriesFromArticles();
+      }
     } on AppException catch (e) {
       hasError = true;
       errorMessage = e.message;
@@ -75,12 +88,71 @@ class ArticleListViewModel extends ChangeNotifier {
     }
   }
 
-  /// Change category filter and re-fetch articles.
-  void selectCategory(String category) {
-    if (selectedNewsSite == category) return;
-    selectedNewsSite = category;
+  /// Dynamically fetch all available news sites from the API info endpoint.
+  Future<void> fetchCategories() async {
+    if (isLoadingCategories) return;
+
+    isLoadingCategories = true;
+    notifyListeners();
+
+    try {
+      final sites = await _repository.getNewsSites();
+      if (sites.isNotEmpty) {
+        final currentSelection = selectedNewsSite;
+
+        _categories = ['All', ...sites];
+
+        // Maintain matched index for current selection
+        final matchedIndex = _categories.indexOf(currentSelection);
+        _selectedCategoryIndex = matchedIndex != -1 ? matchedIndex : 0;
+      }
+    } catch (_) {
+      // If fetching fails, extract from articles or keep current categories
+      if (_articles.isNotEmpty) {
+        _populateCategoriesFromArticles();
+      }
+    } finally {
+      isLoadingCategories = false;
+      notifyListeners();
+    }
+  }
+
+  /// Populate categories dynamically from loaded articles if needed.
+  void _populateCategoriesFromArticles() {
+    final distinctSites = _articles
+        .map((a) => a.newsSite.trim())
+        .where((s) => s.isNotEmpty && s != 'Unknown source')
+        .toSet()
+        .toList();
+
+    if (distinctSites.isNotEmpty) {
+      final currentSelection = selectedNewsSite;
+      _categories = ['All', ...distinctSites];
+      final matched = _categories.indexOf(currentSelection);
+      _selectedCategoryIndex = matched != -1 ? matched : 0;
+    }
+  }
+
+  /// Change category filter by index and re-fetch articles for the matched site.
+  void selectCategoryIndex(int index) {
+    if (index < 0 || index >= _categories.length) return;
+    if (_selectedCategoryIndex == index && _articles.isNotEmpty) return;
+
+    _selectedCategoryIndex = index;
     notifyListeners();
     fetchArticles();
+  }
+
+  /// Change category filter by news site name and find the matched index.
+  void selectCategory(String category) {
+    final index = _categories.indexOf(category);
+    if (index != -1) {
+      selectCategoryIndex(index);
+    } else {
+      // If not yet in categories, add it and select it
+      _categories.add(category);
+      selectCategoryIndex(_categories.length - 1);
+    }
   }
 
   /// Load more articles when scrolling near the bottom.
@@ -124,6 +196,19 @@ class ArticleListViewModel extends ChangeNotifier {
     notifyListeners();
 
     try {
+      // Refresh both categories and articles
+      await Future.wait([
+        fetchCategories(),
+        _fetchArticlesWithoutLoadingIndicator(),
+      ]);
+    } finally {
+      isRefreshing = false;
+      notifyListeners();
+    }
+  }
+
+  Future<void> _fetchArticlesWithoutLoadingIndicator() async {
+    try {
       final page = await _repository.getArticles(
         limit: _pageSize,
         searchQuery: searchQuery,
@@ -143,9 +228,6 @@ class ArticleListViewModel extends ChangeNotifier {
       errorMessage = e.message;
     } catch (_) {
       errorMessage = 'Unable to refresh articles.';
-    } finally {
-      isRefreshing = false;
-      notifyListeners();
     }
   }
 

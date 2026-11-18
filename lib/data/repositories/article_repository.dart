@@ -74,6 +74,24 @@ class ArticleRepository {
     return ArticleModel.fromJson(response);
   }
 
+  /// Fetch dynamic list of news sites from the API info endpoint.
+  Future<List<String>> getNewsSites() async {
+    try {
+      final response = await _apiClient.get(AppConstants.infoEndpoint);
+      final sites = response['news_sites'];
+      if (sites is List) {
+        return sites
+            .map((e) => e.toString().trim())
+            .where((s) => s.isNotEmpty)
+            .toList();
+      }
+    } catch (_) {
+      // Re-throw or let caller handle fallback
+      rethrow;
+    }
+    return [];
+  }
+
   /// Convert API response into a typed ArticlePage.
   ArticlePage _parseArticlePage(Map<String, dynamic> response) {
     final results = response['results'];
