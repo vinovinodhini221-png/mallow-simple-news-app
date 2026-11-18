@@ -1,110 +1,70 @@
-================================================================================
-AI PROMPTS LOG - SIMPLE NEWS APP (FLUTTER)
-================================================================================
-Task: Simple News App (Spaceflight News API)
-Framework: Flutter (Dart)
-Architecture: MVVM + Provider
+AI PROMPTS LOG – SIMPLE NEWS APP (FLUTTER)
+================================================
+
+Project: Simple News App  
+API: Spaceflight News API v4  
+Framework: Flutter / Dart  
+Architecture: MVVM with Provider  
 Date: November 2026
 
---------------------------------------------------------------------------------
-1. PROJECT INITIALIZATION & FOLDER STRUCTURE SETUP
---------------------------------------------------------------------------------
-[Prompt 1.1 - Folder and File Architecture]
-"lib/
-│
-├── core/
-│   ├── constants/
-│   │   └── app_constants.dart
-│   │
-│   ├── errors/
-│   │   └── app_exception.dart
-│   │
-│   ├── network/
-│   │   └── api_client.dart
-│   │
-│   ├── theme/
-│   │   └── app_theme.dart
-│   │
-│   └── utils/
-│       └── date_formatter.dart
-│
-├── data/
-│   ├── models/
-│   │   └── article_model.dart
-│   │
-│   └── repositories/
-│       └── article_repository.dart
-│
-├── viewmodels/
-│   ├── article_list_viewmodel.dart
-│   └── article_detail_viewmodel.dart
-│
-├── views/
-│   ├── screens/
-│   │   ├── article_list_screen.dart
-│   │   └── article_detail_screen.dart
-│   │
-│   └── widgets/
-│       ├── article_card.dart
-│       ├── loading_widget.dart
-│       ├── error_widget.dart
-│       └── empty_widget.dart
-│
-└── main.dart create this foler and file structure"
+------------------------------------------------
+1. PROJECT SETUP
+------------------------------------------------
 
-[Prompt 1.2 - Empty Skeleton Initialization]
-"only folder and file create dont write any code inside"
+Prompt 1:
+"Create a clean Flutter project folder structure following MVVM architecture. Separate core, data, ViewModels, views, screens and reusable widgets. Initially, create only folders and empty Dart files."
 
---------------------------------------------------------------------------------
-2. REQUIREMENTS VERIFICATION & GAP ANALYSIS
---------------------------------------------------------------------------------
-[Prompt 2.1 - Specification Audit]
-"this my required all completed ? [Attached Simple News App (Flutter) Task Overview PDF]"
+------------------------------------------------
+2. REQUIREMENT ANALYSIS
+------------------------------------------------
 
-Context & Objective:
-- Analyzed codebase against the official task specification (APIs, UI reference design, list & detail screen features, MVVM architecture, error handling, responsiveness, production scenarios, and unit/widget tests).
-- Identified remaining requirements: empty error/widget files, broken default counter test, missing typed Dio exceptions, UI mismatch with reference design, and missing documentation.
+Prompt 2:
+"Analyze the attached Simple News App Flutter assignment PDF. Compare its requirements with my existing project and identify completed features, missing functionality and areas that need improvement."
 
---------------------------------------------------------------------------------
-3. CORE IMPLEMENTATION & PRODUCTION SCENARIOS
---------------------------------------------------------------------------------
-[Prompt 3.1 - Implementing Missing Core Requirements & Polish]
-"ok" (Proceed with implementing all missing requirements and fixes)
+------------------------------------------------
+3. CORE DEVELOPMENT
+------------------------------------------------
 
-Components Developed:
-- Typed domain exceptions in app_exception.dart (NetworkException, TimeoutException, ServerException, ClientException, NotFoundException, DataParsingException).
-- Error mapping in ApiClient wrapping Dio to translate DioExceptionType into user-friendly domain errors.
-- Shared widgets cleanup (empty_widget.dart, error_widget.dart, loading_widget.dart).
-- Reference UI alignment: "Discover" header, subtitle, search field with debounce, horizontal news cards with rounded thumbnail on mobile, responsive 2/3-column grid on tablets.
-- Gmail-style swipe navigation with PageView in ArticleDetailScreen with pre-fetching.
-- Complete unit tests (ArticleModel, ArticleRepository, ArticleListViewModel) and Widget test for ArticleListScreen.
-- Comprehensive production-grade README.md explaining architecture, Provider justification, packages, and edge cases.
+Prompt 3:
+"Implement the missing requirements based on the assignment PDF. Follow MVVM architecture and use Provider for state management and Dio for API integration. Implement article listing, article details, search, pagination, pull-to-refresh, swipe navigation, reusable widgets and error handling."
 
---------------------------------------------------------------------------------
-4. DYNAMIC CATEGORIES & TAB MATCHING
---------------------------------------------------------------------------------
-[Prompt 4.1 - Dynamic News Sites Integration]
-"@[lib/viewmodels/article_list_viewmodel.dart] availableCategories is static data i need dynamic from api news_site param then load tab and matched index"
+------------------------------------------------
+4. DYNAMIC NEWS CATEGORIES
+------------------------------------------------
 
-Components Developed:
-- Added `infoEndpoint = '/info/'` in AppConstants.
-- Added `getNewsSites()` in ArticleRepository querying Spaceflight News API `/info/` endpoint.
-- Refactored ArticleListViewModel:
-  * Dynamic `categories` initialized with `['All']` and populated with live news sites.
-  * `_selectedCategoryIndex` tracking for active tab.
-  * `selectCategoryIndex(int index)` and `selectCategory(String name)` to match tab index and filter by `news_site`.
-  * Fallback extraction of distinct news sites from loaded articles if offline.
-- Updated ArticleListScreen to dynamically render ChoiceChips and trigger re-fetching on tab selection.
-- Added corresponding unit tests in ArticleRepositoryTest and ArticleListViewModelTest.
+Prompt 4:
+"In ArticleListViewModel, replace the static news-site categories with dynamic categories fetched from the Spaceflight News API. Implement category selection, selected index management and article filtering using the news_site field."
 
---------------------------------------------------------------------------------
-5. FINAL AUDIT & QUALITY ASSURANCE
---------------------------------------------------------------------------------
-[Prompt 5.1 - Final Verification]
-"okay now all are coorect?"
+------------------------------------------------
+5. TESTING AND DOCUMENTATION
+------------------------------------------------
 
-Verification Results:
-- `flutter analyze`: 0 issues found (Clean Dart/Flutter style following flutter_lints).
-- `flutter test`: 11/11 tests passing across Models, Repositories, ViewModels, and UI widgets.
-- Git repository initialized with clean commits.
-================================================================================
+Prompt 5:
+"Review the complete application against the original assignment requirements. Fix remaining issues, implement unit and widget tests, update README.md and verify the project using flutter analyze and flutter test."
+
+------------------------------------------------
+6. FINAL VERIFICATION
+------------------------------------------------
+
+Prompt 6:
+"Perform a final code review and verify the application features, API integration, MVVM architecture, responsive UI, error handling, automated tests and Git repository. Provide a completion report based on the actual verification results."
+
+------------------------------------------------
+DEVELOPMENT VERIFICATION
+------------------------------------------------
+
+- Flutter analysis: 0 issues reported.
+- Automated tests: 11/11 tests reported passing.
+- Git repository: Initialized with commits.
+
+------------------------------------------------
+NOTE
+------------------------------------------------
+
+AI tools were used as development assistance for project structuring, implementation guidance, debugging, code improvements and documentation.
+
+The development process also involved reviewing the generated code, making necessary adjustments, testing functionality and verifying the final implementation.
+
+AI was used as a supporting tool throughout development, not as a replacement for understanding, reviewing and validating the application.
+
+================================================
