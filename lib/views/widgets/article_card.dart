@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:mallow_tech/core/utils/date_formatter.dart';
-import 'package:mallow_tech/data/models/article_model.dart';
+import 'package:mallow_news_app/core/utils/date_formatter.dart';
+import 'package:mallow_news_app/data/models/article_model.dart';
+
 import 'package:material_ui/material_ui.dart';
 
 class ArticleCard extends StatelessWidget {

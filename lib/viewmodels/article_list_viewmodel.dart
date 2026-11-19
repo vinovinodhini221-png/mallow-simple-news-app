@@ -1,9 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
-import 'package:mallow_tech/core/errors/app_exception.dart';
-import 'package:mallow_tech/data/models/article_model.dart';
-import 'package:mallow_tech/data/repositories/article_repository.dart';
+import 'package:mallow_news_app/core/errors/app_exception.dart';
+import 'package:mallow_news_app/data/models/article_model.dart';
+import 'package:mallow_news_app/data/repositories/article_repository.dart';
+
 
 class ArticleListViewModel extends ChangeNotifier {
   final ArticleRepository _repository;

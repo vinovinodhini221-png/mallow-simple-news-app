@@ -1,9 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mallow_tech/core/errors/app_exception.dart';
-import 'package:mallow_tech/core/network/api_client.dart';
-import 'package:mallow_tech/data/models/article_model.dart';
-import 'package:mallow_tech/data/repositories/article_repository.dart';
-import 'package:mallow_tech/viewmodels/article_list_viewmodel.dart';
+import 'package:mallow_news_app/core/errors/app_exception.dart';
+import 'package:mallow_news_app/core/network/api_client.dart';
+import 'package:mallow_news_app/data/models/article_model.dart';
+import 'package:mallow_news_app/data/repositories/article_repository.dart';
+import 'package:mallow_news_app/viewmodels/article_list_viewmodel.dart';
 
 class MockArticleRepository extends ArticleRepository {
   MockArticleRepository() : super(ApiClient());

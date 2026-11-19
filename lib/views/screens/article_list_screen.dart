@@ -1,9 +1,10 @@
-import 'package:mallow_tech/viewmodels/article_list_viewmodel.dart';
-import 'package:mallow_tech/views/screens/article_detail_screen.dart';
-import 'package:mallow_tech/views/widgets/article_card.dart';
-import 'package:mallow_tech/views/widgets/empty_widget.dart';
-import 'package:mallow_tech/views/widgets/error_widget.dart';
-import 'package:mallow_tech/views/widgets/loading_widget.dart';
+
+import 'package:mallow_news_app/viewmodels/article_list_viewmodel.dart';
+import 'package:mallow_news_app/views/screens/article_detail_screen.dart';
+import 'package:mallow_news_app/views/widgets/article_card.dart';
+import 'package:mallow_news_app/views/widgets/empty_widget.dart';
+import 'package:mallow_news_app/views/widgets/error_widget.dart';
+import 'package:mallow_news_app/views/widgets/loading_widget.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:provider/provider.dart';
 

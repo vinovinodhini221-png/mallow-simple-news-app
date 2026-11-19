@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mallow_tech/core/network/api_client.dart';
-import 'package:mallow_tech/data/repositories/article_repository.dart';
+import 'package:mallow_news_app/core/network/api_client.dart';
+import 'package:mallow_news_app/data/repositories/article_repository.dart';
 
 class FakeApiClient extends ApiClient {
   Map<String, dynamic> responseToReturn = {};

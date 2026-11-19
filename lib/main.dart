@@ -1,9 +1,10 @@
-import 'package:mallow_tech/core/network/api_client.dart';
-import 'package:mallow_tech/core/theme/app_theme.dart';
-import 'package:mallow_tech/data/repositories/article_repository.dart';
-import 'package:mallow_tech/viewmodels/article_detail_viewmodel.dart';
-import 'package:mallow_tech/viewmodels/article_list_viewmodel.dart';
-import 'package:mallow_tech/views/screens/article_list_screen.dart';
+
+import 'package:mallow_news_app/core/network/api_client.dart';
+import 'package:mallow_news_app/core/theme/app_theme.dart';
+import 'package:mallow_news_app/data/repositories/article_repository.dart';
+import 'package:mallow_news_app/viewmodels/article_detail_viewmodel.dart';
+import 'package:mallow_news_app/viewmodels/article_list_viewmodel.dart';
+import 'package:mallow_news_app/views/screens/article_list_screen.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:provider/provider.dart';
 
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        title: 'Mallow News',
+        title: 'Simple News App',
         debugShowCheckedModeBanner: false,
         theme: AppTheme.lightTheme,
         darkTheme: AppTheme.darkTheme,

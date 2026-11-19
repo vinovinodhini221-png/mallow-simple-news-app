@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:mallow_tech/core/constants/app_constants.dart';
-import 'package:mallow_tech/core/errors/app_exception.dart';
-
+import 'package:mallow_news_app/core/constants/app_constants.dart';
+import 'package:mallow_news_app/core/errors/app_exception.dart';
 class ApiClient {
   late final Dio _dio;
 

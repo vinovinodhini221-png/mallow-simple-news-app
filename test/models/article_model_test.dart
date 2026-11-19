@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mallow_tech/data/models/article_model.dart';
+import 'package:mallow_news_app/data/models/article_model.dart';
 
 void main() {
   group('ArticleModel', () {

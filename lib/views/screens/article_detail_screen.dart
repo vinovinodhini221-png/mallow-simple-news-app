@@ -1,8 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:mallow_tech/core/utils/date_formatter.dart';
-import 'package:mallow_tech/data/models/article_model.dart';
-import 'package:mallow_tech/viewmodels/article_detail_viewmodel.dart';
-import 'package:mallow_tech/viewmodels/article_list_viewmodel.dart';
+import 'package:mallow_news_app/core/utils/date_formatter.dart';
+import 'package:mallow_news_app/data/models/article_model.dart';
+import 'package:mallow_news_app/viewmodels/article_detail_viewmodel.dart';
+import 'package:mallow_news_app/viewmodels/article_list_viewmodel.dart';
+
 import 'package:material_ui/material_ui.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';

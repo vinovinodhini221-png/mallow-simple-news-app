@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mallow_tech/core/network/api_client.dart';
-import 'package:mallow_tech/data/models/article_model.dart';
-import 'package:mallow_tech/data/repositories/article_repository.dart';
-import 'package:mallow_tech/main.dart';
+import 'package:mallow_news_app/core/network/api_client.dart';
+import 'package:mallow_news_app/data/models/article_model.dart';
+import 'package:mallow_news_app/data/repositories/article_repository.dart';
+import 'package:mallow_news_app/main.dart';
 import 'package:material_ui/material_ui.dart';
 
 class FakeArticleRepository extends ArticleRepository {
